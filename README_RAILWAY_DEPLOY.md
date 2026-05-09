@@ -70,3 +70,9 @@ DISABLE_FLASH=1
 python app.py --init-db
 uvicorn app:app --host 0.0.0.0 --port 8000
 ```
+
+
+## 登录页安全说明
+
+v1.8 起，登录页不再展示默认管理员账号密码。首次部署仍可使用初始化管理员账号登录，
+但正式上线前建议修改默认密码。

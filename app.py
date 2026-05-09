@@ -233,8 +233,7 @@ def healthz():
 def login_page(request: Request, username: str = ""):
     default_user = username or ""
     default_pwd = ""
-    hint = "默认管理员：admin / redapple123"
-    return HTMLResponse(f"""<html><head><meta charset='utf-8'><style>{CSS}</style></head><body class='login'><div class='card'><div style='font-size:48px'>🍎</div><h1>红苹果AI</h1><p>用户系统</p><form method='post' action='/login'><label>用户名</label><input name='username' value='{default_user}' placeholder='请输入用户名'><label>密码</label><input name='password' type='password' value='{default_pwd}' placeholder='请输入密码'><button>登录</button></form><p class='muted'>{hint}</p><p><a href='/register'>注册新用户</a></p></div></body></html>""")
+    return HTMLResponse(f"""<html><head><meta charset='utf-8'><style>{CSS}</style></head><body class='login'><div class='card'><div style='font-size:48px'>🍎</div><h1>红苹果AI</h1><p>用户系统</p><form method='post' action='/login'><label>用户名</label><input name='username' value='{default_user}' placeholder='请输入用户名'><label>密码</label><input name='password' type='password' value='{default_pwd}' placeholder='请输入密码'><button>登录</button></form><p><a href='/register'>注册新用户</a></p></div></body></html>""")
 
 @app.post("/login")
 def login(request: Request, username: str=Form(...), password: str=Form(...)):
