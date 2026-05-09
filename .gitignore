@@ -1,0 +1,20 @@
+# Python
+venv/
+.venv/
+__pycache__/
+*.pyc
+
+# Local database and uploads
+redapple_users.db
+uploads/
+*.sqlite
+*.db
+
+# Local env and logs
+.env
+*.log
+
+# OS/editor
+.DS_Store
+.vscode/
+.idea/
