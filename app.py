@@ -142,6 +142,43 @@ table{width:100%;border-collapse:collapse;font-size:14px}th{text-align:left;back
   color:var(--red);
 }
 
+
+
+/* v1.11 sidebar icon centered + text left aligned */
+.side nav a{
+  display:grid!important;
+  grid-template-columns:32px 1fr!important;
+  align-items:center!important;
+  column-gap:10px!important;
+  width:100%!important;
+  text-align:left!important;
+  justify-content:stretch!important;
+  white-space:nowrap!important;
+}
+.side nav a .nav-icon{
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  width:32px!important;
+  min-width:32px!important;
+  text-align:center!important;
+  line-height:1!important;
+}
+.side nav a .nav-text{
+  display:block!important;
+  text-align:left!important;
+}
+.side nav{
+  align-items:stretch!important;
+}
+.side .brand{
+  justify-content:flex-start!important;
+  text-align:left!important;
+}
+.side .bottom{
+  text-align:left!important;
+}
+
 @media(max-width:1200px){.metrics{grid-template-columns:repeat(2,1fr)}.grid2{grid-template-columns:1fr}.formgrid,.formgrid5{grid-template-columns:1fr 1fr}}@media(max-width:820px){.shell{grid-template-columns:1fr}.side{display:none}.metrics,.formgrid,.formgrid5{grid-template-columns:1fr}}
 """
 
@@ -235,7 +272,13 @@ def page(title, active, user, body, subtitle="红苹果AI用户系统"):
         ("dashboard","/","▦ 总览"),("devices","/devices","🖥 设备管理"),("models","/models","⬡ 模型配置"),
         ("roles","/roles","👤 角色设置"),("firmware","/firmware","⚡ 固件烧录"),("logs","/logs","📄 日志中心"),("profile","/profile","👤 用户画像")
     ]
-    links = "".join([f'<a class="{"on" if active==k else ""}" href="{href}">{txt}</a>' for k,href,txt in nav])
+    def nav_item(k, href, txt):
+        parts = txt.split(" ", 1)
+        icon = parts[0]
+        label = parts[1] if len(parts) > 1 else txt
+        cls = "on" if active == k else ""
+        return f'<a class="{cls}" href="{href}"><span class="nav-icon">{icon}</span><span class="nav-text">{label}</span></a>'
+    links = "".join([nav_item(k, href, txt) for k, href, txt in nav])
     return HTMLResponse(f"""<!doctype html><html><head><meta charset='utf-8'><title>红苹果AI用户系统</title><style>{CSS}</style></head><body>
     <div class='shell'><aside class='side'><div class='brand'><div class='logo'>🍎</div><div><h1>红苹果AI</h1><p>用户系统</p></div></div><nav>{links}</nav>
     <div class='bottom'>当前用户：{user['display_name']}<a class='logout' href='/logout'>退出登录</a></div></aside>
