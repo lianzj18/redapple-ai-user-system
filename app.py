@@ -120,6 +120,28 @@ table{width:100%;border-collapse:collapse;font-size:14px}th{text-align:left;back
 .firmware-card{border:1px solid #edf0f5;border-radius:18px;padding:16px;margin:14px 0;background:#fbfcfe}
 .firmware-card h4{margin:0 0 8px}
 
+
+/* v1.9 login header fix */
+.login-brand-row{
+  display:flex;
+  align-items:center;
+  gap:16px;
+  margin-bottom:26px;
+}
+.login-brand-logo{
+  font-size:46px;
+  line-height:1;
+}
+.login-brand-row h1{
+  margin:0!important;
+  color:var(--red);
+  font-size:34px;
+  font-weight:900;
+}
+.login .card h1{
+  color:var(--red);
+}
+
 @media(max-width:1200px){.metrics{grid-template-columns:repeat(2,1fr)}.grid2{grid-template-columns:1fr}.formgrid,.formgrid5{grid-template-columns:1fr 1fr}}@media(max-width:820px){.shell{grid-template-columns:1fr}.side{display:none}.metrics,.formgrid,.formgrid5{grid-template-columns:1fr}}
 """
 
@@ -233,7 +255,7 @@ def healthz():
 def login_page(request: Request, username: str = ""):
     default_user = username or ""
     default_pwd = ""
-    return HTMLResponse(f"""<html><head><meta charset='utf-8'><style>{CSS}</style></head><body class='login'><div class='card'><div style='font-size:48px'>🍎</div><h1>红苹果AI</h1><p>用户系统</p><form method='post' action='/login'><label>用户名</label><input name='username' value='{default_user}' placeholder='请输入用户名'><label>密码</label><input name='password' type='password' value='{default_pwd}' placeholder='请输入密码'><button>登录</button></form><p><a href='/register'>注册新用户</a></p></div></body></html>""")
+    return HTMLResponse(f"""<html><head><meta charset='utf-8'><style>{CSS}</style></head><body class='login'><div class='card'><div class='login-brand-row'><div class='login-brand-logo'>🍎</div><h1>红苹果AI</h1></div><form method='post' action='/login'><label>用户名</label><input name='username' value='{default_user}' placeholder='请输入用户名'><label>密码</label><input name='password' type='password' value='{default_pwd}' placeholder='请输入密码'><button>登录</button></form><p><a href='/register'>注册新用户</a></p></div></body></html>""")
 
 @app.post("/login")
 def login(request: Request, username: str=Form(...), password: str=Form(...)):
